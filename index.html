@@ -132,6 +132,33 @@
         padding: 60px 20px;
       }
     }
+
+    /* -----------------------------
+       scroll-based animations
+       ----------------------------- */
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    .slide-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
   </style>
 </head>
 
@@ -145,7 +172,7 @@
   </p>
 </header>
 
-<section class="intro">
+<section class="intro fade-in">
   <h2>Our Focus</h2>
   <p>
     Job Connection Platform works at the intersection of workforce development,
@@ -160,31 +187,31 @@
   </p>
 
   <div class="image-row">
-    <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=60" alt="Young woman smiling">
-    <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=800&q=60" alt="Young professional smiling">
-    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=60" alt="Professional woman smiling">
-    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=60" alt="Young man smiling">
+    <img class="slide-right" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=60" alt="Young woman smiling">
+    <img class="slide-right" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=800&q=60" alt="Young professional smiling">
+    <img class="slide-right" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=60" alt="Professional woman smiling">
+    <img class="slide-right" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=60" alt="Young man smiling">
   </div>
 </section>
 
-<section>
+<section class="fade-in">
   <h2 class="section-title">How We Work</h2>
   <div class="pillars">
-    <div class="pillar">
+    <div class="pillar fade-in">
       <h3>Mentorship</h3>
       <p>
         We emphasize mentor-driven learning rooted in lived experience,
         professional practice, and real career pathways.
       </p>
     </div>
-    <div class="pillar">
+    <div class="pillar fade-in">
       <h3>Career Coaching</h3>
       <p>
         Our work supports career exploration, skill development,
         and decision making across different stages of professional life.
       </p>
     </div>
-    <div class="pillar">
+    <div class="pillar fade-in">
       <h3>Responsible AI</h3>
       <p>
         We use AI as a support tool to expand access to information and reflection,
@@ -194,7 +221,7 @@
   </div>
 </section>
 
-<section>
+<section class="fade-in">
   <div class="contact">
     <h2 class="section-title">Contact Information</h2>
     <p>
@@ -202,12 +229,8 @@
       workforce professionals, and community partners to support
       sustainable career development.
     </p>
-    <p>
-      Email: jobs@jobconnectionplatform.com
-    </p>
-    <p>
-      Sheridan, WY 82801
-    </p>
+    <p>Email: jobs@jobconnectionplatform.com</p>
+    <p>Sheridan, WY 82801</p>
   </div>
 </section>
 
@@ -215,6 +238,20 @@
   © 2026 Job Connection Platform. All rights reserved.
 </footer>
 
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll(".fade-in, .slide-right").forEach(el => {
+    observer.observe(el);
+  });
+</script>
+
 </body>
 </html>
-
